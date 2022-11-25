@@ -3,7 +3,6 @@
 	"theory": "None theory",
 	"questions": [{
 			"type": "description",
-			"title": "optional",
 			"question": "Example Description!"
 		},
 		{
