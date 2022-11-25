@@ -1,17 +1,50 @@
+class AQA {
+	constructor() {
+		this.text = "<table><tr>\n";
+	}
 
-fetch("example.json")
-  .then(response => response.json())
-  .then(json => console.log(json));
+	setTile(title, theory){
+		let textTitle = "<summary>"+title+"</summary>";
+		let textTheory = "<details>"+ textTitle + theory + "</details>\n";
+		this.text += textTheory + this.text;
+	}
 
-async function printJSON() {
-    const response = await fetch("test.json");
-    const json = await response.json();
-    console.log(json);
+	addDescription() {
+
+	}
+
+	addQuestionShort(){
+		
+	}
+
+	addQuestionLong(){
+		
+	}
+
+	addQuestionChoice(){
+	}
+
+	addQuestionAssociation(){
+		
+	}
+
+	display(){
+		this.text += "\n</tr></table>";
+		document.body.innerHTML = this.text;
+	}
+
+	evaluate(){
+		
+	}
+
+	async execute(fileName) {
+		const response = await fetch(fileName);
+		const json = await response.json();
+		this.setTile(json.title, json.theory);
+		this.display();
+	}
 }
 
-//console.log(data);
-
-document.body = document.createElement("body");
-//document.body.innerHTML = data.title;
-document.body.innerHTML = "<p>Hello World!</p>";
-
+let fileName = "example.json";
+let quiz = new AQA();
+quiz.execute(fileName);

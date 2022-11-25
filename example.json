@@ -4,8 +4,7 @@
 	"questions": [{
 			"type": "description",
 			"title": "optional",
-			"question": "Example Description!",
-			"hidden": false
+			"question": "Example Description!"
 		},
 		{
 			"type": "short",
