@@ -21,6 +21,13 @@
 			"feedback": "long answer"
 		},
 		{
+			"type": "mark",
+			"question": "What is 5!?",
+			"options": ["1*2*3*4", "1*2*3*4*5", "5", "121", "120"],
+			"answer": [false, true, false, false, true],
+			"feedback": "5! = 1*2*3*4*5 = 120"
+		},
+		{
 			"type": "choice",
 			"question": "What is 5!?",
 			"options": ["1*2*3*4", "5", "121"],
@@ -28,7 +35,7 @@
 			"feedback": "5! = 1*2*3*4*5 = 120"
 		},
 		{
-			"type": "association",
+			"type": "select",
 			"question": "Link!",
 			"keys": ["1", "a", "b", "12!"],
 			"values": ["Number", "Charactere"],
