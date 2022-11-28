@@ -1,23 +1,18 @@
 class AQA {
 	constructor() {
-		this.text = "<table>\n";
+		this.text = '<table class="main">';
 		this.questions = new Map();
 		this.idCount = 0;
 	}
 
 	setTile(title, theory) {
-		let textTitle = "<summary>" + title + "</summary>";
-		let textTheory = "<details>" + textTitle + theory + "</details><br>";
+		let textTitle = `<summary class="main">${title}</summary>`;
+		let textTheory = `<details class="main">${textTitle}${theory}</details><br>`;
 		this.text += textTheory + this.text;
 	}
 
 	_addCell(text) {
-		this.text += "<tr><td>" + text + "</td></tr>";
-	}
-
-	_addFeedback() {
-		let id = this.idCount++;
-		this.text += "<tr><td><div id=\"" + id + "\" hidden></div></td></tr>";
+		this.text += `<tr class="main"><td class="main">${text}</td></tr>`;
 	}
 
 	_insertQuestion(q) {
@@ -27,79 +22,66 @@ class AQA {
 	}
 
 	addDescription(desc) {
-		this.text += "<tr><td>" + desc.question + "</td></tr>";
+		this._addCell(desc.question);
 	}
 
 	addQuestionShort(q) {
 		let id = this._insertQuestion(q);
-		let text = "<br>" + q.question + "<br>";
-		text += "<input type=\"text\" id=\"" + id + "\"><br>"
+		let text = q.question + '<br>';
+		text += `<input type="text" id="${id}" class="main">`
 		this._addCell(text);
-		this._addFeedback();
 	}
 
 	addQuestionLong(q) {
 		let id = this._insertQuestion(q);
-		let text = "<br>" + q.question + "<br>";
-		text += "<textarea id=\"" + id + "\"></textarea><br>";
+		let text = q.question + '<br>';
+		text += `<textarea id="${id}" rows=10 class="main"></textarea>`;
 		this._addCell(text);
-		this._addFeedback();
 	}
 
 	_createGroup(q, groupName){
-		let text = "";
+		let text = '';
 		for (let opt of q.options) {
 			text += groupName;
-			text += "value=\"" + opt + "\"/>";
-			text += opt + "<br>";
+			text += `value="${opt}"/>`;
+			text += opt;
 		}
 		return text;
 	}
 
-	addQuestionMark(q) {
+	addQuestionOptions(q, type='checkbox') {
 		let id = this._insertQuestion(q);
-		let group = "<input id=\""+id+"\"";
-		group += " type=\"checkbox\"";
-		group +=  "name=\"question" + id + "\"";
-		let text = "<br>" + q.question + "<br>";
-		text += this._createGroup(q, group);
+		let group = `<br><input id="${id}"`;
+		group += ` type="${type}"`;
+		group +=  `name="question_${id}"`;
+		let text = q.question + this._createGroup(q, group);
 		this._addCell(text);
-		this._addFeedback();
-	}
-
-	addQuestionChoice(q) {
-		let id = this._insertQuestion(q);
-		let group = "<input id=\""+id+"\"";
-		group += " type=\"radio\"";
-		group +=  "name=\"question" + id + "\"";
-		let text = "<br>" + q.question + "<br>";
-		text += this._createGroup(q, group);
-		this._addCell(text);
-		this._addFeedback();
 	}
 
 	_createSelection(id, key, values){
-		let text = key + ": ";
-		text += "<select id=\"" + id + "_" + key + "\">";
+		let text = `<tr class="select"><td class="select">${key}:</td><td class="select">`;
+		text += `<select id=${id}_${key} class="main"><option value=""></option>`;
 		for(let opt of values){
-			text += "<option value=\"" + opt +"\">" + opt + "</option>";
+			text += `<option value="${opt}">${opt}</option>`;
 		}
-		text += "</select>";
-		this._addCell(text);
-		this._addFeedback();
+		text += '</select></td>';
+		return text;
 	}
 
 	addQuestionSelect(q) {
 		let id = this._insertQuestion(q);
-		let text = "<br>" + q.question + "<br>";
-		this._addCell(text);
+		let text = q.question;
+		text += '<table class="select">';
 		for(let k of q.keys){
-			this._createSelection(id, k, q.values);
+			text += this._createSelection(id, k, q.values);
 		}
+		text += '</table>';
+		this._addCell(text);
 	}
 
 	display() {
-		this.text += "\n</table>";
+		this.text += '</table><br><input type="submit" value="Evaluate!">';
+
 		document.body.innerHTML = this.text;
 	}
 
@@ -113,17 +95,17 @@ class AQA {
 		this.setTile(json.title, json.theory);
 		for (let q of json.questions) {
 			switch (q.type) {
-				case "description":
+				case 'description':
 					this.addDescription(q); break;
-				case "short":
+				case 'short':
 					this.addQuestionShort(q); break;
-				case "long":
+				case 'long':
 					this.addQuestionLong(q); break;
-				case "mark":
-					this.addQuestionMark(q); break;
-				case "choice":
-					this.addQuestionChoice(q); break;
-				case "select":
+				case 'mark':
+					this.addQuestionOptions(q, 'checkbox'); break;
+				case 'choice':
+					this.addQuestionOptions(q, 'radio'); break;
+				case 'select':
 					this.addQuestionSelect(q); break;
 			}
 		}
@@ -131,6 +113,6 @@ class AQA {
 	}
 }
 
-let fileName = "example.json";
+let fileName = './data/example.json';
 let quiz = new AQA();
 quiz.execute(fileName);
