@@ -1,14 +1,17 @@
+
 class AQA {
 	constructor() {
-		this.text = '<table class="main">';
+		this.text = '<form action="/" method="POST">'
+		this.text += '<table class="main">';
 		this.questions = new Map();
 		this.idCount = 0;
 	}
 
-	setTile(title, theory) {
+	setTitle(title, theory, fileName) {
 		let textTitle = `<summary class="main">${title}</summary>`;
 		let textTheory = `<details class="main">${textTitle}${theory}</details><br>`;
-		this.text += textTheory + this.text;
+		let file = `<input type="hidden" id="fileName" value="${fileName}">`;
+		this.text += textTheory + file + this.text;
 	}
 
 	_addCell(text) {
@@ -35,7 +38,7 @@ class AQA {
 	addQuestionLong(q) {
 		let id = this._insertQuestion(q);
 		let text = q.question + '<br>';
-		text += `<textarea id="${id}" rows=10 class="main"></textarea>`;
+		text += `<textarea id="${id}" class="main"></textarea>`;
 		this._addCell(text);
 	}
 
@@ -80,19 +83,14 @@ class AQA {
 	}
 
 	display() {
-		this.text += '</table><br><input type="submit" value="Evaluate!">';
-
+		this.text += '</table><br><input type="submit" value="Evaluate!"></form>';
 		document.body.innerHTML = this.text;
-	}
-
-	evaluate() {
-
 	}
 
 	async execute(fileName) {
 		const response = await fetch(fileName);
 		const json = await response.json();
-		this.setTile(json.title, json.theory);
+		this.setTitle(json.title, json.theory, fileName);
 		for (let q of json.questions) {
 			switch (q.type) {
 				case 'description':
@@ -113,6 +111,4 @@ class AQA {
 	}
 }
 
-let fileName = './data/example.json';
-let quiz = new AQA();
-quiz.execute(fileName);
+export{AQA};
