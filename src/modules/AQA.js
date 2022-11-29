@@ -122,22 +122,25 @@ class AQA {
 		let isCorrect = e.value.trim() === q.answer.trim();
 		this._setStyle(e, isCorrect);
 		this._setStyleParent(e, isCorrect);
+		return isCorrect ? 1 : 0;
 	}
 
 	evalQuestionLong(id, q) {
 		// BLEU metric
+		return 0;
 	}
 
 	evalQuestionMark(id, q) {
 		let vet = document.getElementsByName(id);
-		let allCorrect = true;
+		let numCorrect = 0;
 		for (let index = 0; index < q.answer.length; index++) {
 			let e = vet[index];
 			let isCorrect = e.checked === q.answer[index];
 			this._setStyle(e.parentElement, isCorrect);
-			allCorrect = allCorrect && isCorrect;
+			numCorrect += isCorrect ? 1 : 0;
 		}
-		this._setStyleParent(vet[0].parentElement, allCorrect);
+		this._setStyleParent(vet[0].parentElement, numCorrect === q.answer.length);
+		return numCorrect / q.answer.length;
 	}
 
 	evalQuestionOptions(id, q) {
@@ -147,40 +150,58 @@ class AQA {
 			if(e.checked === true){
 				let isCorrect = e.value === q.answer;
 				this._setStyle(e.parentElement, isCorrect);
-				return;
+				this._setStyleParent(e.parentElement, isCorrect);
+				return 1;
 			}
 		}
-		this._setStyleParent(vet[0].parentElement, false);
+		return 0;
 	}
 
 	evalQuestionSelect(id, q) {
-		let allCorrect = true;
-		let e;
+		let e, numCorrect = 0, total = 0;
 		for(let [key, value] of Object.entries(q.answer)){
 			e = document.getElementById(id + '_' + key);
 			let isCorrect = e.value.trim() === value.trim();
 			this._setStyle(e.parentElement.parentElement, isCorrect);
-			allCorrect = allCorrect && isCorrect;
+			numCorrect += isCorrect ? 1 : 0;
+			total += 1;
 		}
-		this._setStyleParent(e.parentElement.parentElement.parentElement.parentElement, allCorrect);
+		this._setStyleParent(e.parentElement.parentElement.parentElement.parentElement, numCorrect === total);
+		return numCorrect / total;
 	}
 
 	evaluate(element) {
 		element.disabled = true;
+		let sum = 0, total = 0;
 		for (let [id, q] of this.questions.entries()) {
 			switch (q.type) {
 				case 'short':
-					this.evalQuestionShort(id, q); break;
+					sum += this.evalQuestionShort(id, q);
+					total += 1;
+					break;
 				case 'long':
-					this.evalQuestionLong(id, q); break;
+					sum += this.evalQuestionLong(id, q); 
+					total += 1;
+					break;
 				case 'mark':
-					this.evalQuestionMark(id, q); break;
+					sum += this.evalQuestionMark(id, q);
+					total += 1;
+					break;
 				case 'choice':
-					this.evalQuestionOptions(id, q); break;
+					sum += this.evalQuestionOptions(id, q);
+					total += 1;
+					break;
 				case 'select':
-					this.evalQuestionSelect(id, q); break;
+					sum += this.evalQuestionSelect(id, q);
+					total += 1;
+					break;
 			}
 		}
+
+		console.log(sum);
+		let points = Math.floor((1000 * sum)/total);
+		let div = `<div class="result">Score: ${points}</div>`
+		document.body.innerHTML += div;
 	}
 }
 
