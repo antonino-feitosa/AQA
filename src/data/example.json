@@ -30,7 +30,7 @@
 		{
 			"type": "choice",
 			"question": "What is 5!?",
-			"options": ["1*2*3*4", "5", "121"],
+			"options": ["1*2*3*4", "5", "121", "120"],
 			"answer": "120",
 			"feedback": "5! = 1*2*3*4*5 = 120"
 		},
