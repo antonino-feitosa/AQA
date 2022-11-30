@@ -8,18 +8,11 @@ As questões serão modeladas em arquivos que serão carregados pela aplicação
 
 Por fim, a interface inicial apresentará todos os questionários disponíveis com a opção de aplicação ou de análise estatística. Ao selecionar a aplicação, o usuário será direcionada para tela do questionário onde deve responder as questões. Ao finalizar, será apresentado o parecer e a pontuação obtida sendo registrado a data e as respostas do usuário e então retornando à tela inicial.
 
-## Instruções
-
-0. Pré-requisitos: node.js instalado.
-1. Execute: node server.js
-2. Abra o navegador em http://localhost:8080
-
-Dependências: express, showdown.
-
 ## Próximos Passos
 
-- [ ] Adaptar para npm;
-- [ ] Urgente: refatorar criação dos inputs (geração do html está horrível);
+- [x] Urgente: refatorar criação dos inputs (geração do html está horrível);
+  - [x] Adicionar configuração json e carregar bibliotecas nos subdiretórios (MD file);
+  - [x] Adaptar para npm;
 - [ ] Adição de feedback das respostas incluindo pontuação;
 - [ ] Página inicial listando os questionários disponíveis;
 - [ ] Página para edição dos questionários;

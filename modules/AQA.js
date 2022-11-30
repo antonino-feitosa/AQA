@@ -1,4 +1,3 @@
-
 const showdown  = require('showdown');
 const fs = require("fs");
 
@@ -9,6 +8,8 @@ class HElement {
 		this.name = name;
 		this.classname = classname;
 		this.id = null;
+		this.value = null;
+		this.type = null;
 		this._style = '';
 		this._enabled = '';
 		this.childs = [];
@@ -31,7 +32,9 @@ class HElement {
 		let id = this.id ? `id="${this.id}"` : '';
 		let name = this.name ? `name="${this.name}"` : '';
 		let classname = this.classname ? `class="${this.classname}"` : '';
-		return [id, classname, name, this._style, this._enabled];
+		let value = this.value ? `value="${this.value}"` : '';
+		let type = this.type ? `type="${this.type}"` : '';
+		return [id, classname, name, type, value, this._style, this._enabled];
 	}
 
 	addChild(child){
@@ -44,9 +47,9 @@ class HElement {
 
 	setCorrect(set){
 		if(set){
-			this._style = 'style="background:LightGreen';
+			this._style = 'style="background:LightGreen"';
 		} else {
-			this._style = 'style="background:LightSalmon';
+			this._style = 'style="background:LightSalmon"';
 		}
 	}
 }
@@ -56,16 +59,6 @@ class HShortText extends HElement {
 	constructor(name){
 		super('input', name);
 		this.type = 'text';
-		this.value = null;
-	}
-
-	getAttributes(){
-		let list = super.getAttributes();
-		list.push(`type="${this.type}"`);
-		if(this.value){
-			list.push(`value="${value}"`);
-		}
-		return list;
 	}
 }
 
@@ -75,27 +68,19 @@ class HLongText extends HElement {
 		super('textarea', name);
 		this.value = null;
 	}
-
-	getAttributes(){
-		let list = super.getAttributes();
-		if(this.value){
-			list.push(`value="${value}"`);
-		}
-		return list;
-	}
 }
 
 class HCheckbox extends HElement{
 
-	constructor(name){
+	constructor(name, value){
 		super('input', name);
+		this.value = value;
 		this.type = 'checkbox';
 		this.checked = false;
 	}
 
 	getAttributes(){
 		let list = super.getAttributes();
-		list.push(`type="${this.type}"`);
 		if(this.checked){
 			list.push('checked');
 		}
@@ -111,7 +96,7 @@ class HCheckboxGroup extends HElement {
 	}
 
 	addOption(optionText){
-		let opt = new HCheckbox(this.name);
+		let opt = new HCheckbox(this.name, optionText);
 		opt.addChild(optionText);
 		let div = new HElement('div');
 		div.addChild(opt);
@@ -119,10 +104,24 @@ class HCheckboxGroup extends HElement {
 		this.options.set(optionText, div);
 	}
 
-	setCorrectOptions(correct = []){
-		for(let [text, e] of this.options.entries()){
-			e.setCorrect(correct.includes(text));
+	getMarked(){
+		let marks = [];
+		this.options.forEach( (v,k) => v.childs[0].checked && marks.push(k) );
+		return marks;
+	}
+
+	setMarked(optionText){
+		if(this.options.has(optionText)){
+			this.options.get(optionText).childs[0].checked = true;
 		}
+	}
+
+	setCorrectOptions(correct){
+		let marks = this.getMarked();
+		for(let [text, e] of this.options.entries()){
+			e.setCorrect(correct.includes(text) === marks.includes(text));
+		}
+		this.options.forEach( v => v.childs[0].enabled(false));
 	}
 }
 
@@ -137,14 +136,17 @@ class HRadioGroup extends HCheckboxGroup {
 		this.options.get(optionText).childs[0].type = 'radio';
 	}
 
+	getMarked(){
+		let text = '';
+		this.options.forEach( (v,k) => v.childs[0].checked && (text = k) );
+		return text;
+	}
+
 	setCorrectOptions(correct){
-		for(let [text, e] of this.options.entries()){
-			e.setCorrect(correct === text);
-			e.enabled(false);
-		}
+		this.setCorrect(correct === this.getMarked());
+		this.options.forEach( v => v.childs[0].enabled(false));
 	}
 }
-
 
 class HOption extends HElement {
 
@@ -157,7 +159,6 @@ class HOption extends HElement {
 
 	getAttributes(){
 		let list = super.getAttributes();
-		list.push(`value="${this.value}"`);
 		if(this.selected){
 			list.push('selected');
 		}
@@ -170,16 +171,13 @@ class HSelect extends HElement {
 	constructor(name){
 		super('select', name);
 		this.options = new Map();
-		this.selectedOption = null;
+		this.selectedOption = '';
 	}
 
 	addOption(optionText){
 		let option = new HOption(optionText);
 		this.options.set(optionText, option);
 		this.addChild(option);
-		if(!this.selectedOption){
-			this.selectedOption = optionText;
-		}
 	}
 
 	getSelectedOption(){
@@ -187,6 +185,7 @@ class HSelect extends HElement {
 	}
 
 	setSelectedOption(optionText){
+		this.selectedOption = optionText;
 		this.options.get(optionText).selected = true;
 	}
 }
@@ -202,12 +201,18 @@ class HSelectGroup extends HElement {
 	}
 
 	setSelectedKey(key, value){
-		this.options.get(optionText).setSelectedOption(value);
+		this.options.get(key).setSelectedOption(value);
+	}
+
+	enabled(set){
+		this.options.forEach(e => e.enabled(set));
 	}
 
 	setCorrectKey(key, value){
 		let opt = this.options.get(key);
-		val.setCorrect(opt.getSelectedOption() === value);
+		let isCorrect = opt.getSelectedOption() === value;
+		opt.setCorrect(isCorrect);
+		opt.cell.setCorrect(isCorrect);
 	}
 
 	addKey(key){
@@ -221,28 +226,39 @@ class HSelectGroup extends HElement {
 		tr.addChild(tdkey);
 		tr.addChild(tdsel);
 		this.addChild(tr);
+		select.cell = tr;
 		this.options.set(key, select);
 	}
 }
 
 class AQA {
 
-	constructor(title, request){
-		this.title = title;
+	constructor(request = '/'){
 		this.request = request;
+		this.title = 'AQA';
 		this.style = null;
 		this.theory = null;
 		this.table = new HElement('table', null, 'main');
 	}
 
+	loadJSON(fileName){
+		let file = fs.readFileSync(fileName, 'utf8');
+		this.json = JSON.parse(file);
+		this.title = this.json.title;
+	}
+
+	loadStyle(fileName){
+		this.style = fs.readFileSync(fileName, 'utf-8');
+	}
+
 	loadTheoryMD(fileName){
-		let md = fs.readFileSync(fileName);
-		converter = new showdown.Converter(),
+		let md = fs.readFileSync(fileName, 'utf-8');
+		let converter = new showdown.Converter();
     	this.theory = converter.makeHtml(md);
 	}
 
-	parseJSON(json, answers = null){
-		for (let q of json.questions) {
+	generate(answers = null){
+		for (let q of this.json.questions) {
 			switch (q.type) {
 				case 'description':
 					this.addDescription(q)
@@ -324,14 +340,17 @@ class AQA {
 	}
 
 	evalQuestionMark(q, answers){
-		if(!Array.isArray(this.answers[q.name])){
+		if(!answers[q.name]){
+			answers[q.name] = [];
+		} else if(!Array.isArray(answers[q.name])){
 			answers[q.name] = [answers[q.name]];
 		}
-		q.element.setCorrectOptions(answers[q.name]);
+		answers[q.name].forEach(e => q.element.setMarked(e));
+		q.element.setCorrectOptions(q.answer);
 
 		let allCorrect = true;
 		q.options.forEach((e,i) => {
-			let isCorrect = this.answers[q.name].includes(e) === q.answer[i];
+			let isCorrect = answers[q.name].includes(e) === q.answer.includes(e);
 			allCorrect = allCorrect && isCorrect;
 		});
 		q.cell.setCorrect(allCorrect);
@@ -346,7 +365,8 @@ class AQA {
 	}
 
 	evalQuestionOptions(q, answers){
-		q.element.setCorrectOptions(answers[q.name]);
+		q.element.setMarked(answers[q.name]);
+		q.element.setCorrectOptions(q.answer);
 		q.cell.setCorrect(q.answer === answers[q.name]);
 	}
 
@@ -367,6 +387,7 @@ class AQA {
 			q.element.setCorrectKey(k, q.answer[k]);
 			allCorrect = allCorrect && isCorrect;
 		});
+		q.element.enabled(false);
 		q.cell.setCorrect(allCorrect);
 	}
 

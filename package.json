@@ -1,0 +1,30 @@
+{
+  "name": "aqa",
+  "version": "1.0.0",
+  "description": "Simple question/answer app.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antonino-feitosa/AQA.git"
+  },
+  "keywords": [
+    "question",
+    "answer",
+    "evaluation",
+    "automation"
+  ],
+  "author": "Antonino Feitosa <antonino_feitosa@yahoo.com.br>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/antonino-feitosa/AQA/issues"
+  },
+  "homepage": "https://github.com/antonino-feitosa/AQA#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "showdown": "^2.1.0"
+  }
+}

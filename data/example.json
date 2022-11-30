@@ -26,7 +26,7 @@
 			"name": "mark question 3",
 			"question": "What is 5!?",
 			"options": ["1*2*3*4", "1*2*3*4*5", "5", "121", "120"],
-			"answer": [false, true, false, false, true],
+			"answer": ["1*2*3*4*5", "120"],
 			"feedback": "5! = 1*2*3*4*5 = 120"
 		},
 		{
