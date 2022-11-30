@@ -18,6 +18,7 @@ Dependências: express, showdown.
 
 ## Próximos Passos
 
+- [ ] Adaptar para npm;
 - [ ] Urgente: refatorar criação dos inputs (geração do html está horrível);
 - [ ] Adição de feedback das respostas incluindo pontuação;
 - [ ] Página inicial listando os questionários disponíveis;
