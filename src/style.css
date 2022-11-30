@@ -47,7 +47,7 @@ textarea {
 	width: -moz-available;
 }
 
-input[type=button] {
+input[type=submit] {
 	float: right;
 	width: 200px;
 	font-weight: bold;

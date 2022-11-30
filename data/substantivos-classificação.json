@@ -1,0 +1,50 @@
+{
+	"title": "Quiz about nothing!",
+	"theory": "substantivos-classificação.md",
+	"questions": [{
+			"type": "description",
+			"question": "Example Description!"
+		},
+		{
+			"type": "short",
+			"title": "Short Question 1",
+			"question": "What is 2 + 2?",
+			"difficulty": "easy",
+			"answer": "4",
+			"feedback": "2 + 2 = 4"
+		},
+		{
+			"type": "long",
+			"question": "Describe the evolution.",
+			"difficulty": "easy",
+			"answer": ["long answer 1", "long answer 2", "long answer 3"],
+			"feedback": "long answer"
+		},
+		{
+			"type": "mark",
+			"question": "What is 5!?",
+			"options": ["1*2*3*4", "1*2*3*4*5", "5", "121", "120"],
+			"answer": [false, true, false, false, true],
+			"feedback": "5! = 1*2*3*4*5 = 120"
+		},
+		{
+			"type": "choice",
+			"question": "What is 5!?",
+			"options": ["1*2*3*4", "5", "121", "120"],
+			"answer": "120",
+			"feedback": "5! = 1*2*3*4*5 = 120"
+		},
+		{
+			"type": "select",
+			"question": "Link!",
+			"keys": ["1", "a", "b", "12!"],
+			"values": ["Number", "Charactere"],
+			"answer": {
+				"1": "Number",
+				"a": "Charactere",
+				"b": "Charactere",
+				"12!": "Number"
+			}
+		}
+	]
+}

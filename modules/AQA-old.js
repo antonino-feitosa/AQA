@@ -5,10 +5,19 @@ class AQA {
 		this.questions = new Map();
 		this.idCount = 0;
 	}
+	
+	loadTheory(){
+		//let showdown  = require('showdown'),
+    	converter = new showdown.Converter(),
+    	text = '# hello, markdown!',
+    	html = converter.makeHtml(text);
+		return html;
+	}
 
 	setTitle(title, theory, fileName) {
 		let textTitle = `<summary class="main">${title}</summary>`;
-		let textTheory = `<details class="main">${textTitle}${theory}</details>`;
+		let text = this.loadTheory();
+		let textTheory = `<details class="main">${textTitle}${text}</details>`;
 		let table = '<form><table class="main">'
 		let file = `<input type="hidden" id="fileName" value="${fileName}">`;
 		this.text += textTheory + table + file;

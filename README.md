@@ -14,11 +14,14 @@ Por fim, a interface inicial apresentará todos os questionários disponíveis c
 1. Execute: node server.js
 2. Abra o navegador em http://localhost:8080
 
+Dependências: express, showdown.
+
 ## Próximos Passos
 
 [] Página inicial listando os questionários disponíveis;
 [] Página para edição dos questionários;
-[] Página para visualização das esatísticas de um questionários;
-[] Avaliação por teoria de resposta ao item considerando as resoluções sequenciais do questionários e o intervalo de tempo entre as respostas;
+[] Página para visualização das estatísticas de um questionários;
+[] Avaliação por teoria de resposta ao item considerando as resoluções sequenciais dos questionários e o intervalo de tempo entre as submissões;
 [] Avaliação das questões discursivas argumentativas pela métrica BLEU;
-[] Suporte a questões matemáticas com latex através de mathjs;
+[] Suporte à questões matemáticas com latex através de mathjs;
+[] Inserção de imagens e referências
