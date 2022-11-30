@@ -18,10 +18,12 @@ Dependências: express, showdown.
 
 ## Próximos Passos
 
-[] Página inicial listando os questionários disponíveis;
-[] Página para edição dos questionários;
-[] Página para visualização das estatísticas de um questionários;
-[] Avaliação por teoria de resposta ao item considerando as resoluções sequenciais dos questionários e o intervalo de tempo entre as submissões;
-[] Avaliação das questões discursivas argumentativas pela métrica BLEU;
-[] Suporte à questões matemáticas com latex através de mathjs;
-[] Inserção de imagens e referências
+- [ ] Urgente: refatorar criação dos inputs (geração do html está horrível);
+- [ ] Adição de feedback das respostas incluindo pontuação;
+- [ ] Página inicial listando os questionários disponíveis;
+- [ ] Página para edição dos questionários;
+- [ ] Página para visualização das estatísticas de um questionários;
+- [ ] Avaliação por teoria de resposta ao item considerando as resoluções sequenciais dos - questionários e o intervalo de tempo entre as submissões;
+- [ ] Avaliação das questões discursivas argumentativas pela métrica BLEU;
+- [ ] Suporte à questões matemáticas com latex através de mathjs;
+- [ ] Inserção de imagens e referências

@@ -40,11 +40,13 @@ class AQA {
 	addQuestionShort(q) {
 		let text = q.question + '<br>';
 		let style = "";
+		let value = "";
 		if(this.answers){
-			let isCorrect = q.answer.trim() === this.answers[q.name].trim();
+			let isCorrect = this.answers[q.name] && q.answer.trim() === this.answers[q.name].trim();
 			style = 'style="background:' + (isCorrect ? 'LightGreen' : 'LightSalmon') + '"';
+			value = `value="${this.answers[q.name]}" disabled`;
 		}
-		text += `<input type="text" name="${q.name}" ${style} class="main">`
+		text += `<input type="text" name="${q.name}" class="main" ${style} ${value}>`
 		this._addCell(text, style);
 	}
 
@@ -54,27 +56,65 @@ class AQA {
 		this._addCell(text);
 	}
 
-	_createGroup(q, groupName) {
+	_createGroup(q, type = 'checkbox', styleByOption, markedByOption) {
 		let text = '';
 		for (let opt of q.options) {
-			text += groupName;
-			text += `value="${opt}"/>`;
+			let style = styleByOption.get(opt);
+			let group = `<div ${style}><input type="${type}" name="${q.name}"`;
+			text += group;
+			let check = markedByOption.get(opt);
+			text += `value="${opt}" ${check}>`;
 			text += opt + '</input></div>';
 		}
 		return text;
 	}
 
-	addQuestionOptions(q, type = 'checkbox') {
-		let group = `<div><input type="${type}" name="${q.name}"`;
-		let text = q.question + this._createGroup(q, group);
-		this._addCell(text);
+	addQuestionMark(q) {
+		let style = "";
+		let styleByOption = new Map();
+		let markByOption = new Map();
+		if(this.answers){
+			if(!Array.isArray(this.answers[q.name])){
+				this.answers[q.name] = [this.answers[q.name]];
+			}
+			let numCorrect = 0;
+			q.options.forEach((e,i) => {
+				let isCorrect = this.answers[q.name].includes(e) === q.answer[i];
+				let style = 'style="background:' + (isCorrect ? 'LightGreen' : 'LightSalmon') + '"';
+				numCorrect += isCorrect ? 1 : 0;
+				styleByOption.set(e, style);
+				markByOption.set(e, this.answers[q.name].includes(e) ? 'checked disabled': 'disabled');
+			});
+			style = 'style="background:' + (numCorrect === q.options.length ? 'LightGreen' : 'LightSalmon') + '"';
+		}
+		let text = q.question + this._createGroup(q, 'checkbox', styleByOption, markByOption);
+		this._addCell(text, style);
 	}
 
-	_createSelection(name, key, values) {
-		let text = `<tr class="select"><td class="select">${key}:</td><td class="select">`;
-		text += `<select name="${name}" class="main"><option value=""></option>`;
+	addQuestionOptions(q) {
+		let style = "";
+		let styleByOption = new Map();
+		let markByOption = new Map();
+		if(this.answers){
+			if(this.answers[q.name]){
+				let isCorrect = this.answers[q.name] === q.answer;
+				style = 'style="background:' + (isCorrect ? 'LightGreen' : 'LightSalmon') + '"';
+				q.options.forEach(e => {
+					styleByOption.set(e, style);
+					markByOption.set(e, e === this.answers[q.name] ? 'checked disabled': 'disabled');
+				});
+			}
+		}
+		let text = q.question + this._createGroup(q, 'radio', styleByOption, markByOption);
+		this._addCell(text, style);
+	}
+
+	_createSelection(name, key, values, style, value) {
+		let text = `<tr class="select" ${style}><td class="select">${key}:</td><td class="select">`;
+		text += `<select name="${name}" class="main" ${style}><option value=""></option>`;
 		for (let opt of values) {
-			text += `<option value="${opt}">${opt}</option>`;
+			let selected = opt === value ? 'selected' : '';
+			text += `<option value="${opt}" ${selected}>${opt}</option>`;
 		}
 		text += '</select></td>';
 		return text;
@@ -83,11 +123,22 @@ class AQA {
 	addQuestionSelect(q) {
 		let text = q.question;
 		text += '<table class="select" cellspacing="0" cellpadding="0">';
-		for (let k of q.keys) {
-			text += this._createSelection(q.name, k, q.values);
-		}
+		let numCorrect = 0;
+		let style = '';
+		q.keys.forEach((k,i) => {
+			let style = '';
+			let value = '';
+			if(this.answers){
+				value = this.answers[q.name][i];
+				let isCorrect = q.answer[k] === value;
+				numCorrect += isCorrect ? 1 : 0;
+				style = 'disabled style="background:' + (isCorrect ? 'LightGreen' : 'LightSalmon') + '"';
+			}
+			text += this._createSelection(q.name, k, q.values, style, value);
+		});
+		style = 'style="background:' + (numCorrect === q.keys.length ? 'LightGreen' : 'LightSalmon') + '"';
 		text += '</table>';
-		this._addCell(text);
+		this._addCell(text, style);
 	}
 
 	generate() {
@@ -100,9 +151,9 @@ class AQA {
 				case 'long':
 					this.addQuestionLong(q); break;
 				case 'mark':
-					this.addQuestionOptions(q, 'checkbox'); break;
+					this.addQuestionMark(q); break;
 				case 'choice':
-					this.addQuestionOptions(q, 'radio'); break;
+					this.addQuestionOptions(q); break;
 				case 'select':
 					this.addQuestionSelect(q); break;
 			}
