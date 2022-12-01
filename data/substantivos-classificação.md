@@ -138,4 +138,4 @@ Um bando de aves.
 Um renque de palmeiras.
 Um renque de colunas.
 
-"Ei-Io a passar como triunfador do futuro entre renques de caras boçais." (ANíBAL MACl-IADO).
+"Ei-lo a passar como triunfador do futuro entre renques de caras boçais." (ANÍBAL MACHADO).

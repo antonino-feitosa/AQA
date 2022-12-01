@@ -9,7 +9,7 @@
 			"type": "short",
 			"name": "Short Question 1",
 			"question": "What is 2 + 2?",
-			"difficulty": "easy",
+			"difficulty": 2,
 			"answer": "4",
 			"feedback": "2 + 2 = 4"
 		},
@@ -17,13 +17,14 @@
 			"type": "long",
 			"name": "long question 2",
 			"question": "Describe the evolution.",
-			"difficulty": "easy",
+			"difficulty": 3,
 			"answer": ["long answer 1", "long answer 2", "long answer 3"],
 			"feedback": "long answer"
 		},
 		{
 			"type": "mark",
 			"name": "mark question 3",
+			"difficulty": 1,
 			"question": "What is 5!?",
 			"options": ["1*2*3*4", "1*2*3*4*5", "5", "121", "120"],
 			"answer": ["1*2*3*4*5", "120"],
@@ -32,6 +33,7 @@
 		{
 			"type": "choice",
 			"name": "multiple choice question 4",
+			"difficulty": 1,
 			"question": "What is 5!?",
 			"options": ["1*2*3*4", "5", "121", "120"],
 			"answer": "120",
@@ -40,6 +42,7 @@
 		{
 			"type": "select",
 			"name": "select question 5",
+			"difficulty": 1,
 			"question": "Link!",
 			"keys": ["1", "a", "b", "12!"],
 			"values": ["Number", "Charactere"],

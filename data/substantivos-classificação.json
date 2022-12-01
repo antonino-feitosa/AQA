@@ -1,50 +1,154 @@
 {
-	"title": "Quiz about nothing!",
+	"title": "Substantivos - Classificação",
 	"theory": "substantivos-classificação.md",
-	"questions": [{
+	"questions": [
+		{
 			"type": "description",
-			"question": "Example Description!"
+			"question": "No trecho abaixo, classifique as palavras na classe solicitada.<br>\"Os índios foram muitas vezes considerados cruéis guerreiros, e as suas atitudes não raro causam pânico e revolta. O seu conhecimento mais profundo, entretanto, revela o heroísmo de um povo que, de arcos e flechas, se opõe tenazmente às máquinas que invadem seu território.\" (Apoena Meireles, apud Edilson Martins, Nossos índios, Nossos Mortos, p. 14)\""
 		},
 		{
-			"type": "short",
-			"title": "Short Question 1",
-			"question": "What is 2 + 2?",
-			"difficulty": "easy",
-			"answer": "4",
-			"feedback": "2 + 2 = 4"
+			"type": "mark", "name": "1.1", "difficulty": 0.5,
+			"question": "Substantivos Concretos",
+			"options": ["índios", "foram", "muitas", "vezes", "considerados", "cruéis", "guerreiros", "atitudes", "raro", "causam", "pânico", "revolta", "conhecimento", "mais", "profundo", "entretanto", "revela", "heroísmo", "povo", "arcos", "flechase", "opõe", "tenazmente", "máquinas", "invadem", "território"],
+			"answer": ["índios", "guerreiros", "povo", "arcos", "flechas", "máquinas", "território"]
 		},
 		{
-			"type": "long",
-			"question": "Describe the evolution.",
-			"difficulty": "easy",
-			"answer": ["long answer 1", "long answer 2", "long answer 3"],
-			"feedback": "long answer"
+			"type": "mark", "name": "1.2", "difficulty": 0.5,
+			"question": "Substantivos Abstratos",
+			"options": ["índios", "foram", "muitas", "vezes", "considerados", "cruéis", "guerreiros", "atitudes", "raro", "causam", "pânico", "revolta", "conhecimento", "mais", "profundo", "entretanto", "revela", "heroísmo", "povo", "arcos", "flechase", "opõe", "tenazmente", "máquinas", "invadem", "território"],
+			"answer": ["vezes", "atitudes", "pânico", "revolta", "conhecimento", "heroísmo"]
+		},
+
+		{
+			"type": "description",
+			"question": "Dê os substantivos abstratos correspondentes: <br>Exemplo: garimpeiro - garimpagem"
+		},
+		{ "question": "tirano", "answer": "tirania", "difficulty": 0.1, "type": "short", "name": "2.1" },
+		{ "question": "rei", "answer": "realeza", "difficulty": 0.1, "type": "short", "name": "2.2" },
+		{ "question": "mendigo", "answer": "mendicância", "difficulty": 0.1, "type": "short", "name": "2.3" },
+		{ "question": "catequista", "answer": "catequese", "difficulty": 0.1, "type": "short", "name": "2.4" },
+		{ "question": "viúvo", "answer": "viuvez", "difficulty": 0.1, "type": "short", "name": "2.5" },
+		{ "question": "infrator", "answer": "infração", "difficulty": 0.1, "type": "short", "name": "2.6" },
+		{ "question": "sacerdote", "answer": "sacerdócio", "difficulty": 0.1, "type": "short", "name": "2.7" },
+		{ "question": "herege", "answer": "heresia", "difficulty": 0.1, "type": "short", "name": "2.8" },
+
+		{
+			"type": "description",
+			"question": "Selecione as palavras que funcionam acidentalmente como substantivos nas frases abaixo:"
 		},
 		{
-			"type": "mark",
-			"question": "What is 5!?",
-			"options": ["1*2*3*4", "1*2*3*4*5", "5", "121", "120"],
-			"answer": [false, true, false, false, true],
-			"feedback": "5! = 1*2*3*4*5 = 120"
+			"type": "mark", "name": "3.1", "difficulty": 0.33,
+			"question": "A estrada rasgava o verde bruto da paisagem.",
+			"options": ["estrada", "rasgava", "verde", "bruto", "paisagem"],
+			"answer": ["verde"]
 		},
 		{
-			"type": "choice",
-			"question": "What is 5!?",
-			"options": ["1*2*3*4", "5", "121", "120"],
-			"answer": "120",
-			"feedback": "5! = 1*2*3*4*5 = 120"
+			"type": "mark", "name": "3.2", "difficulty": 0.33,
+			"question": "Nas palavras amáveis de Venâncio percebi um quê de falsidade.",
+			"options": ["palavras", "amáveis", "Venâncio", "percebi", "quê", "falsidade"],
+			"answer": ["quê"]
 		},
 		{
-			"type": "select",
-			"question": "Link!",
-			"keys": ["1", "a", "b", "12!"],
-			"values": ["Number", "Charactere"],
+			"type": "mark", "name": "3.3", "difficulty": 0.34,
+			"question": "Súbito, ouvimos um leve rufiar de asas.",
+			"options": ["Súbito", "ouvimos", "leve", "ruflar", "asas"],
+			"answer": ["ruflar"]
+		},
+		
+		{
+			"type": "select", "name": "4.", "difficulty": 2,
+			"question": "Forme substantivos compostos com as palavras seguintes, combinando-as corretamente:<br>Observação: deixe em branco as palavra que forem usadas como terminação do substantivo.",
+			"keys": ["água", "vira", "papel", "ardente", "rã", "prima", "volta", "pé", "alta", "moeda", "obra", "relevo", "busca", "baixo", "perna", "homem"],
+			"values": ["água", "vira", "papel", "ardente", "rã", "prima", "volta", "pé", "alta", "moeda", "obra", "relevo", "busca", "baixo", "perna", "homem"],
 			"answer": {
-				"1": "Number",
-				"a": "Charactere",
-				"b": "Charactere",
-				"12!": "Number"
+				"água": "ardente",
+				"vira": "volta",
+				"papel": "moeda",
+				"ardente": "",
+				"rã": "",
+				"prima": "",
+				"volta": "",
+				"pé": "",
+				"alta": "",
+				"moeda": "",
+				"obra": "prima",
+				"relevo": "",
+				"busca": "pé",
+				"baixo": "relevo",
+				"perna": "alta",
+				"homem" : "rã"
+			},
+			"feedback": "homem-rã, obra-prima, busca-pé, papel-moeda, baixo-relevo, aguardente, viravolta, pernalta"
+		},
+
+		{
+			"type": "select", "name": "5.", "difficulty": 1,
+			"question": "Substitua os asteriscos pelos coletivos do quadro nas frases seguintes:",
+			"keys": [
+				"A *** foi atacada por uma ___ de lobos famintos.",
+				"A ___ foi atacada por uma *** de lobos famintos.",
+				"No *** V, a Europa foi invadida por ___ de bárbaros.",
+				"No ___ V, a Europa foi invadida por *** de bárbaros.",
+				"Entre os *** de árvores floridas revoavam ___ de insetos zumbidores.",
+				"Entre os ___ de árvores floridas revoavam *** de insetos zumbidores.",
+				"A égua-madrinha guia a *** pelos descampados.",
+				"A *** era de fino lavor.",
+				"Na *** do Egito, Osíris é o pai, ísis é a mãe e Hórus, o filho.",
+				"Os caçadores açulavam a *** contra a onça.",
+				"O filme promete ser bom: no *** só há artistas famosos.",
+				"A noite no espaço vinha a negra *** das sombras espargindo. (Olavo Bilac)"
+			],
+			"values": ["miríades","matilha","hordas","século","tropilha","alcateia","caravana","baixela","tríade","renques","legião","elenco"],
+			"answer": {
+				"A *** foi atacada por uma ___ de lobos famintos.": "caravana",
+				"A ___ foi atacada por uma *** de lobos famintos.": "alcateia",
+				"No *** V, a Europa foi invadida por ___ de bárbaros.": "século",
+				"No ___ V, a Europa foi invadida por *** de bárbaros.": "hordas",
+				"Entre os *** de árvores floridas revoavam ___ de insetos zumbidores.":"renques",
+				"Entre os ___ de árvores floridas revoavam *** de insetos zumbidores.":"miríades",
+				"A égua-madrinha guia a *** pelos descampados.":"tropilha",
+				"A *** era de fino lavor.":"baixela",
+				"Na *** do Egito, Osíris é o pai, ísis é a mãe e Hórus, o filho.":"tríade",
+				"Os caçadores açulavam a *** contra a onça.":"matilha",
+				"O filme promete ser bom: no *** só há artistas famosos.":"elenco",
+				"A noite no espaço vinha a negra *** das sombras espargindo. (Olavo Bilac)": "legião"
 			}
-		}
+		},
+
+
+		{
+			"type": "description",
+			"question": "Com o auxílio de sufixos adequados, derive coletivos dos substantivos seguintes:<br>Exemplo: árvores - arvoredo."
+		},
+		{ "question": "árvore", "answer": "arvoredo", "name": "6.1", "difficulty": 0.1, "type": "short" },
+		{ "question": "canas", "answer": "canavial", "name": "6.2", "difficulty": 0.1, "type": "short" },
+		{ "question": "bois", "answer": "boiada", "name": "6.3", "difficulty": 0.1, "type": "short" },
+		{ "question": "vinhas", "answer": "vinhedo", "name": "6.4", "difficulty": 0.1, "type": "short" },
+		{ "question": "cafeeiros", "answer": "cafezal", "name": "6.5", "difficulty": 0.1, "type": "short" },
+		{ "question": "cabelos", "answer": "cabeleira", "name": "6.6", "difficulty": 0.1, "type": "short" },
+		{ "question": "cães", "answer": "cainçalha", "name": "6.7", "difficulty": 0.1, "type": "short" },
+		{ "question": "coqueiros", "answer": "coqueiral", "name": "6.8", "difficulty": 0.1, "type": "short" },
+		{ "question": "ramos", "answer": "ramada", "name": "6.9", "difficulty": 0.1, "type": "short" },
+		{ "question": "teclas", "answer": "teclado", "name": "6.10", "difficulty": 0.1, "type": "short" },
+		{ "question": "hinos", "answer": "hinário", "name": "6.11", "difficulty": 0.1, "type": "short" },
+		{ "question": "tripulantes", "answer": "tripulação", "name": "6.12", "difficulty": 0.1, "type": "short" },
+		{ "question": "parentes", "answer": "parentela", "name": "6.13", "difficulty": 0.1, "type": "short" },
+		{ "question": "cordas", "answer": "cordame", "name": "6.14", "difficulty": 0.1, "type": "short" },
+		{ "question": "vasilhas", "answer": "vasilhame", "name": "6.15", "difficulty": 0.1, "type": "short" },
+		{ "question": "criados", "answer": "criadagem", "name": "6.16", "difficulty": 0.1, "type": "short" },
+		{ "question": "mulheres", "answer": "mulherio", "name": "6.17", "difficulty": 0.1, "type": "short" },
+		{ "question": "jabuticabeiras", "answer": "jabuticabal", "name": "6.18", "difficulty": 0.1, "type": "short" },
+		{ "question": "carnaúbas", "answer": "carnaubal", "name": "6.19", "difficulty": 0.1, "type": "short" },
+		
+		{
+			"type": "description",
+			"question": "Escreva os substantivos abstratos que correspondam às palavras destacadas.<br>Oriente-se pelo exemplo:<br>O menino, feliz, corria pelos campos.<br>A felicidade do menino contagiava a todos."
+		},
+		{ "question": "O <u>pobre</u> homem emocionou a todos.", "answer": "pobreza", "name": "7.1", "difficulty": 0.1, "type": "short" },
+		{ "question": "<u>Recordar</u> a cena me trazia lágrimas aos olhos.", "answer": "recordação", "name": "7.2", "difficulty": 0.1, "type": "short" },
+		{ "question": "<u>Atualizar</u> os conhecimentos é uma exigência dos dias de hoje.", "answer": "atualização", "name": "7.3", "difficulty": 0.1, "type": "short" },
+		{ "question": "<u>Conceder</u> privilégios parece ser uma característica desse governo.", "answer": "concessão", "name": "7.4", "difficulty": 0.1, "type": "short" },
+		{ "question": "<u>Matar</u> os pobres filhotes é crime que não tem perdão.", "answer": "matança", "name": "7.5", "difficulty": 0.1, "type": "short" }
+		
 	]
 }

@@ -13,7 +13,9 @@ Por fim, a interface inicial apresentará todos os questionários disponíveis c
 - [x] Urgente: refatorar criação dos inputs (geração do html está horrível);
   - [x] Adicionar configuração json e carregar bibliotecas nos subdiretórios (MD file);
   - [x] Adaptar para npm;
-- [ ] Adição de feedback das respostas incluindo pontuação;
+- [x] Tratar dificuldade das questões.
+- [x] Feedback da pontuação.
+- [x] Adição de feedback das respostas incluindo pontuação;
 - [ ] Página inicial listando os questionários disponíveis;
 - [ ] Página para edição dos questionários;
 - [ ] Página para visualização das estatísticas de um questionários;
