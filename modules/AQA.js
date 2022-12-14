@@ -343,7 +343,7 @@ class AQA {
 	}
 
 	addDescription(q) {
-		this._addCell(q.question);
+		q.element = this._addCell(q.question);
 	}
 
 	addQuestionShort(q) {
