@@ -1,16 +1,19 @@
 
-const AQA = require('./modules/AQA.js');
+const AQA = require('./AQA.js');
 const express = require('express');
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/favicon.ico', express.static('favicon.ico'));
 
 let port = 80;
 
 let jsonFile = './private/substantivos-classificação.json';
-let style = './src/style.css';
+let style = './style.css';
 let theory = './private/substantivos-classificação.md';
 
+// TODO index.html
+// TODO handle links
 app.get("/", (req, res) => {
 	let quiz = new AQA('evaluate');
 	quiz.loadJSON(jsonFile);

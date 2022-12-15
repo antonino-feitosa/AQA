@@ -40,8 +40,8 @@ class ParseAQA {
             return null;
         }
         
-        this.json = {title: this.sentences.shift(), theory: this.sentences.shift(), questions: []};
-        this.sentences.shift()
+        this.json = {title: this.nextSentence(), theory: this.nextSentence(), questions: []};
+        this.nextSentence()
 
         this.lines = this.sentences.length;
         this.count = 0;
@@ -51,8 +51,20 @@ class ParseAQA {
         return this.json;
     }
 
+    nextSentence(){
+        if(!this.sentences || this.sentences.length === 0){
+            console.warn('Premature end of file!');
+            return '';
+        }
+        return this.sentences.shift().trim();
+    }
+
+    hasNextSentence(){
+        return this.sentences && this.sentences.length > 0 && this.sentences[0] !== '';
+    }
+
     parse_question() {
-        let sent = this.sentences.shift();
+        let sent = this.nextSentence();
         switch (sent) {
             case 'long': this.parse_long(); break;
             case 'short': this.parse_short(); break;
@@ -65,18 +77,18 @@ class ParseAQA {
                 console.warn(`Can not process line ${this.lines - this.sentences.length}: ${sent}`);
                 this.sentences.length = 0;
         }
-        this.sentences.shift();
+        this.nextSentence();
     }
 
     parse_feedback(){
-        let text = this.sentences.shift();
+        let text = this.nextSentence();
         this.json.questions[this.json.questions.length-1].feedback = text;
     }
 
     parse_description(){
         let q = {}
         q.type = 'description';
-        q.question = this.sentences.shift();
+        q.question = this.nextSentence();
         this.json.questions.push(q);
     }
 
@@ -93,29 +105,29 @@ class ParseAQA {
     }
 
     parse_long(){
-        let question = this.sentences.shit();
-        let answer = []
-        while(this.sentences && this.sentences[0] !== ''){
-            answer.push(this.sentences.shift())
+        let question = this.nextSentence();
+        let answer = [];
+        while(this.hasNextSentence()){
+            answer.push(this.nextSentence())
         }
         this.create_question('long', 10, question, answer);
     }
 
     parse_short(){
         this.parse_description();
-        while(this.sentences && this.sentences[0] !== ''){
-            let question = this.sentences.shift();
-            let answer = this.sentences.shift();
+        while(this.hasNextSentence()){
+            let question = this.nextSentence();
+            let answer = this.nextSentence();
             this.create_question('short', 3, question, answer);
         }
     }
 
     parse_select(){
-        let question = this.sentences.shift();
+        let question = this.nextSentence();
         let answer = new Map();
-        while(this.sentences && this.sentences[0] !== ''){
-            let key = this.sentences.shift();
-            let value = this.sentences.shift();
+        while(this.hasNextSentence()){
+            let key = this.nextSentence();
+            let value = this.nextSentence();
             answer.set(key,value);
         }
         let q = this.create_question('select', 2, question, answer);
@@ -124,34 +136,34 @@ class ParseAQA {
     }
 
     parse_mark(){
-        let question = this.sentences.shift();
-        let options = [];
-        while(this.sentences && this.sentences[0] !== ''){
-            options.push(this.sentences.shift());
-        }
-        this.sentences.shift();
+        let question = this.nextSentence();
         let answers = [];
-        while(this.sentences && this.sentences[0] !== ''){
-            answers.push(this.sentences.shift());
+        while(this.hasNextSentence()){
+            answers.push(this.nextSentence());
         }
-        let q = this.create_question('short', 1, question, answers);
+        this.nextSentence();
+        let options = Array.from(answers);
+        while(this.hasNextSentence()){
+            options.push(this.nextSentence());
+        }
+        let q = this.create_question('mark', 1, question, answers);
         q.options = options;
     }
 
     parse_choice(){
-        let question = this.sentences.shift();
-        let answer = this.sentences.shift();
-        let options = [];
-        while(this.sentences && this.sentences[0] !== ''){
-            options.push(this.sentences.shift());
+        let question = this.nextSentence();
+        let answer = this.nextSentence();
+        let options = [answer];
+        while(this.hasNextSentence()){
+            options.push(this.nextSentence());
         }
-        let q = this.create_question('short', 1, question, answer);
+        let q = this.create_question('choice', 1, question, answer);
         q.options = options;
     }
 }
 
 
-let fileName = './private/substantivos-classificação.aqa';
+let fileName = './data/example.aqa';
 let file = fs.readFileSync(fileName, 'utf-8');
 let json = new ParseAQA().parse(file);
 console.log(JSON.stringify(json, null, 2));

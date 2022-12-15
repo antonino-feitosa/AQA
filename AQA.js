@@ -242,6 +242,13 @@ class HSelectGroup extends HElement {
 	}
 }
 
+function shuffle(array){
+	for(let i=0;i<array.length-1;i++){
+		let index = i + Math.floor(Math.random() * array.length);
+		[array[i], array[index]] = [array[index], array[i]];
+	}
+}
+
 class AQA {
 
 	constructor(request = '/') {
@@ -379,6 +386,7 @@ class AQA {
 
 	addQuestionMark(q) {
 		q.element = new HCheckboxGroup('div', q.name);
+		shuffle(q.options);
 		q.options.forEach(o => q.element.addOption(o));
 		q.cell = this._addCell(q.question);
 		q.cell.addChild('<br>');
@@ -405,6 +413,7 @@ class AQA {
 
 	addQuestionOptions(q) {
 		q.element = new HRadioGroup('div', q.name);
+		shuffle(q.options);
 		q.options.forEach(o => q.element.addOption(o));
 		q.cell = this._addCell(q.question);
 		q.cell.addChild('<br>');

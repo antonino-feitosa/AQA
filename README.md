@@ -7,19 +7,3 @@ As questões devem ser modeladas por uma linguagem de sintaxe e semântica simpl
 As questões serão modeladas em arquivos que serão carregados pela aplicação para gerar o questionário de modo que eles sejam independentes. Elas serão avaliadas de modo automático quando o usuário terminar finalizar o questionário. A pontuação será determinada pela teoria da resposta ao item incluindo as questões discursivas que serão avaliadas pela métrica BLEU. Assim, serão registradas as repostas e o tempo do usuário que serão utilizadas posteriormente para análises de progresso como também dados para teoria da resposta ao item.
 
 Por fim, a interface inicial apresentará todos os questionários disponíveis com a opção de aplicação ou de análise estatística. Ao selecionar a aplicação, o usuário será direcionada para tela do questionário onde deve responder as questões. Ao finalizar, será apresentado o parecer e a pontuação obtida sendo registrado a data e as respostas do usuário e então retornando à tela inicial.
-
-## Próximos Passos
-
-- [x] Urgente: refatorar criação dos inputs (geração do html está horrível);
-  - [x] Adicionar configuração json e carregar bibliotecas nos subdiretórios (MD file);
-  - [x] Adaptar para npm;
-- [x] Tratar dificuldade das questões.
-- [x] Feedback da pontuação.
-- [x] Adição de feedback das respostas incluindo pontuação;
-- [ ] Página inicial listando os questionários disponíveis;
-- [ ] Página para edição dos questionários;
-- [ ] Página para visualização das estatísticas de um questionários;
-- [ ] Avaliação por teoria de resposta ao item considerando as resoluções sequenciais dos - questionários e o intervalo de tempo entre as submissões;
-- [ ] Avaliação das questões discursivas argumentativas pela métrica BLEU;
-- [ ] Suporte à questões matemáticas com latex através de mathjs;
-- [ ] Inserção de imagens e referências
