@@ -1,4 +1,4 @@
-const fs = require("fs");
+
 /* grammar aqa
 
 file = title endl theory endl questions
@@ -44,7 +44,7 @@ class ParseAQA {
         this.nextSentence()
 
         this.lines = this.sentences.length;
-        this.count = 0;
+        this.count = 1;
         while(this.sentences.length > 0){
             this.parse_question();
         }
@@ -163,8 +163,4 @@ class ParseAQA {
 }
 
 
-let fileName = './data/example.aqa';
-let file = fs.readFileSync(fileName, 'utf-8');
-let json = new ParseAQA().parse(file);
-console.log(JSON.stringify(json, null, 2));
-
+module.exports = ParseAQA;

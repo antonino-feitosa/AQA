@@ -8,7 +8,10 @@
 - [x] Feedback da pontuação.
 - [x] Adição de feedback das respostas incluindo pontuação;
 - [x] Aleatorizar posição das opções de respostas das questões
-- [ ] Página inicial listando os questionários disponíveis;
+- [x] Página inicial listando os questionários disponíveis;
+- [ ] Mover código da página inicial para o cliente.
+- [ ] Carregar lista de tópicos de um arquivo.
+- [ ] Enviar o nome do arquivo da lista de tópicos como argumento para o servidor.
 - [ ] Gravar histórico das avaliações
 - [ ] Ponderação da pontuação considerando o histórico penalizando erros ao acaso
 

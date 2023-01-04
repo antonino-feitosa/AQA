@@ -289,7 +289,6 @@ class AQA {
 	}
 
 	_evaluate(answers) {
-		console.log(answers);
 		let functions = new Map();
 		functions.set('short', q => this.evalQuestionShort(q, answers));
 		functions.set('long', q => this.evalQuestionLong(q, answers));
@@ -329,7 +328,7 @@ class AQA {
 		if (this.theory)
 			text += this.theory;
 		text += '</details>';
-		text += `<form action="${this.request}" method="post" autocomplete="off">`;
+		text += `<form action="/evaluate?aqa=${this.request}" method="post" autocomplete="off">`;
 		text += this.table.make();
 		if (score) {
 			text += `<div class="result">Score: ${score}</div>`;
