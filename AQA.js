@@ -244,7 +244,7 @@ class HSelectGroup extends HElement {
 
 function shuffle(array){
 	for(let i=0;i<array.length-1;i++){
-		let index = i + Math.floor(Math.random() * array.length);
+		let index = i + Math.floor(Math.random() * (array.length - i));
 		[array[i], array[index]] = [array[index], array[i]];
 	}
 }
@@ -283,7 +283,7 @@ class AQA {
 		functions.set('mark', q => this.addQuestionMark(q));
 		functions.set('choice', q => this.addQuestionOptions(q));
 		functions.set('select', q => this.addQuestionSelect(q));
-		this._shuffle();
+		this._shuffle(); // shuffle the sequence of short questions
 		this.json.questions.forEach(q => functions.get(q.type)(q));
 		let score = answers ? this._evaluate(answers) : null;
 		return this._make(score);
@@ -294,17 +294,19 @@ class AQA {
 		let start = 0;
 		let end = questions.findIndex(q => q.type === 'description');
 		while(end !== -1){
-			this._shuffleArray(questions, start, end);
-			start = end + 1;
+			start = start + 1;
+			if(questions[start].type === 'short'){
+				this._shuffleArray(questions, start, end);
+			}
+			start = end;
 			end = questions.findIndex((q, index) => q.type === 'description' && index > end);
 		}
 		this._shuffleArray(questions, start, questions.length);
 	}
 
 	_shuffleArray(array, start, end){
-		let size = end - start;
 		for(let i=start;i<end-1;i++){
-			let index = Math.floor(Math.random() * size + start);
+			let index = Math.floor(Math.random() * (end - i) + start);
 			[array[i], array[index]] = [array[index], array[i]];
 		}
 	}
@@ -370,7 +372,9 @@ class AQA {
 	}
 
 	addDescription(q) {
-		q.element = this._addCell(q.question);
+		if(q.question.length > 0){
+			q.element = this._addCell(q.question);
+		}
 	}
 
 	addQuestionShort(q) {

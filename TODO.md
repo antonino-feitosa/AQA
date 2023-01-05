@@ -14,7 +14,12 @@
 - [ ] Enviar o nome do arquivo da lista de tópicos como argumento para o servidor.
 - [ ] Gravar histórico das avaliações
 - [ ] Ponderação da pontuação considerando o histórico penalizando erros ao acaso
-- [ ] Adiconar questão curta com múltiplas respostas
+- [ ] Avaliações questões discursivas ponderando a presença de palavras chaves delimitadas por aspas.
+- [ ] Apresentar a resposta correta como feedback caso não seja provido um.
+
+# Issues
+
+- [x] A aleatorização deve atuar somente nas alternativas de uma mesma questão. Ela está misturando alterantivas de diferentes questões.
 
 # Furture Works
 

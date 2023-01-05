@@ -120,6 +120,11 @@ class ParseAQA {
             let answer = this.nextSentence();
             this.create_question('short', 3, question, answer);
         }
+        // add description for style
+        let q = {}
+        q.type = 'description';
+        q.question = '';
+        this.json.questions.push(q);
     }
 
     parse_select(){
