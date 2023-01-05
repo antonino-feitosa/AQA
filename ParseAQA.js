@@ -92,14 +92,14 @@ class ParseAQA {
         this.json.questions.push(q);
     }
 
-    create_question(type, difficulty, question, answer){
+    create_question(type, difficulty, question, answer, feedback = ''){
         let q = {};
         q.type = type;
         q.difficulty = difficulty;
         q.name = this.count++;
         q.question = question;
         q.answer = answer;
-        q.feedback = '';
+        q.feedback = feedback;
         this.json.questions.push(q);
         return q;
     }
@@ -110,7 +110,7 @@ class ParseAQA {
         while(this.hasNextSentence()){
             answer.push(this.nextSentence())
         }
-        this.create_question('long', 10, question, answer);
+        this.create_question('long', 10, question, answer, answer[0]);
     }
 
     parse_short(){
@@ -118,7 +118,7 @@ class ParseAQA {
         while(this.hasNextSentence()){
             let question = this.nextSentence();
             let answer = this.nextSentence();
-            this.create_question('short', 3, question, answer);
+            this.create_question('short', 3, question, answer, answer);
         }
         // add description for style
         let q = {}

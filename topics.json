@@ -1,0 +1,22 @@
+{
+    "topics": [
+    {
+      "topic": "presentsimple",
+      "desc": "English - Present Simple",
+      "json": "./english/present simple.json",
+      "theory": "./english/present simple.md"
+    },
+    {
+      "topic": "substantivos_class",
+      "desc": "Gramática - Classificação dos Substantivos",
+      "json": "./gramática/substantivos-classificação.json",
+      "theory": "./gramática/substantivos-classificação.md"
+    },
+    {
+      "topic": "substantivos_genero",
+      "desc": "Gramática - Classificação - Flexão do Gênero",
+      "json": "./gramática/substantivos-gênero.json",
+      "theory": "./gramática/substantivos-gênero.md"
+    }
+  ]
+}

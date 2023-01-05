@@ -1,35 +1,35 @@
 
-const AQA = require('./AQA.js');
+const port = 80;
+const baseDir = process.argv[2] || './AQA'
+const Topic = require('./Topics');
+Topic.readFile(process.argv[3] || 'topics.json');
+
+const path = require("path");
 const express = require('express');
+const bodyParser = require('body-parser');
 const app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use('/favicon.ico', express.static('favicon.ico'));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use('/favicon.ico', express.static(baseDir + '/favicon.ico'));
 
-let port = 80;
+app.get("/", (_, res) => {
+	res.send(Topic.makeIndex());
+});
 
-let jsonFile = './private/substantivos-classificação.json';
-let style = './style.css';
-let theory = './private/substantivos-classificação.md';
+app.get("/style.css", (_, res) => {
+	res.sendFile(path.resolve(baseDir + '/style.css'));
+});
 
-// TODO index.html
-// TODO handle links
-app.get("/", (req, res) => {
-	let quiz = new AQA('evaluate');
-	quiz.loadJSON(jsonFile);
-	quiz.loadStyle(style);
-	quiz.loadTheoryMD(theory);
-	let html = quiz.generate();
+app.get("/apply", (req, res) => {
+	let topic = req.query.aqa;
+	let html = Topic.get(topic).loadHTML();
 	res.send(html);
 });
 
 app.post('/evaluate', function(req, res){
-	console.log(req.body);
-	let quiz = new AQA();
-	quiz.loadJSON(jsonFile);
-	quiz.loadStyle(style);
-	quiz.loadTheoryMD(theory);
-	let html = quiz.generate(req.body);
+	let topic = req.query.aqa;
+	let response = req.body;
+	let html = Topic.get(topic).evalHTML(response);
 	res.send(html);
 })
 

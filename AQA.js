@@ -265,10 +265,6 @@ class AQA {
 		this.title = this.json.title;
 	}
 
-	loadStyle(fileName) {
-		this.style = fs.readFileSync(fileName, 'utf-8');
-	}
-
 	loadTheoryMD(fileName) {
 		let md = fs.readFileSync(fileName, 'utf-8');
 		let converter = new showdown.Converter();
@@ -343,8 +339,7 @@ class AQA {
 	_make(score = null) {
 		let text = '<!DOCTYPE html><html><head>';
 		text += `<title>AQA - ${this.title}</title>`;
-		if (this.style)
-			text += `<style>${this.style}</style>`;
+		text += `<link rel="stylesheet" type="text/css" href="style.css"></link>`;
 		text += '</head><body>';
 		text += `<details class="main">`;
 		text += `<summary class="main">${this.title}</summary>`;

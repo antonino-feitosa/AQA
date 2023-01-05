@@ -9,13 +9,12 @@
 - [x] Adição de feedback das respostas incluindo pontuação;
 - [x] Aleatorizar posição das opções de respostas das questões
 - [x] Página inicial listando os questionários disponíveis;
-- [ ] Mover código da página inicial para o cliente.
-- [ ] Carregar lista de tópicos de um arquivo.
-- [ ] Enviar o nome do arquivo da lista de tópicos como argumento para o servidor.
+- [x] Carregar lista de tópicos de um arquivo.
+- [x] Enviar o nome do arquivo da lista de tópicos como argumento para o servidor.
 - [ ] Gravar histórico das avaliações
 - [ ] Ponderação da pontuação considerando o histórico penalizando erros ao acaso
 - [ ] Avaliações questões discursivas ponderando a presença de palavras chaves delimitadas por aspas.
-- [ ] Apresentar a resposta correta como feedback caso não seja provido um.
+- [x] Apresentar a resposta correta como feedback caso não seja provido um nas questões discursivas e curtas.
 
 # Issues
 
